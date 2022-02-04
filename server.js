@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -14,7 +15,11 @@ function MovieData(id, title, release_date, poster, overview) {
 
 app.get('/', (req, res) => {
     //res.send('Hello World!')
-    res.send(data);
+    res.send(new MovieData(
+        data.title,
+        data.poster_path,
+        data.overview
+    ));
 });
 
 app.get('/favorite', (req, res) => {
