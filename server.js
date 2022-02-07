@@ -1,9 +1,14 @@
 'use strict';
 const express = require('express');
 const app = express();
-const port = 3000;
+const dotenv = require('dotenv');
 const axios = require('axios').default;
-const data = require('./Movie Data/data.json')
+const data = require('./Movie Data/data.json');
+
+dotenv.config();
+
+const PORT = process.env.PORT;
+const API_KEY = process.env.API_KEY;
 
 function MovieData(id, title, release_date, poster, overview) {
     this.id = id;
@@ -27,12 +32,14 @@ app.get('/favorite', (req, res) => {
 });
 
 app.get('/trending', (req, res) => {
-    axios.get('https://api.themoviedb.org/3/trending/all/week?api_key=c5ba4c0a872712a0e57673a2187d8a0c&language=en-US')
+    axios.get(`https://api.themoviedb.org/3/trending/all/week?api_key=${API_KEY}&language=en-US`)
         .then(function (response) {
             // handle success
-            //console.log(response.data);
-            let m = response.data.results[0];
-            res.send(new MovieData(m.id, m.title, m.release_date, m.poster_path, m.overview));
+            let results = [];
+            response.data.results.forEach(m => {
+                results.push(new MovieData(m.id, m.title, m.release_date, m.poster_path, m.overview));
+            });
+            res.send(results);
         })
         .catch(function (error) {
             // handle error
@@ -42,7 +49,7 @@ app.get('/trending', (req, res) => {
 });
 
 app.get('/search', (req, res) => {
-    axios.get(`https://api.themoviedb.org/3/search/movie?api_key=c5ba4c0a872712a0e57673a2187d8a0c&language=en-US&query=${req.query.q}&page=2`)
+    axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}=en-US&query=${req.query.q}&page=2`)
         .then(function (response) {
             // handle success
             //console.log(response.data);
@@ -57,7 +64,7 @@ app.get('/search', (req, res) => {
 });
 
 app.get('/search_by_id', (req, res) => {
-    axios.get(`https://api.themoviedb.org/3/movie/${req.query.id}?api_key=c5ba4c0a872712a0e57673a2187d8a0c`)
+    axios.get(`https://api.themoviedb.org/3/movie/${req.query.id}?api_key=${API_KEY}`)
         .then(function (response) {
             // handle success
             console.log(response.data);
@@ -72,7 +79,7 @@ app.get('/search_by_id', (req, res) => {
 });
 
 app.get('/revnue', (req, res) => {
-    axios.get(`https://api.themoviedb.org/3/movie/${req.query.id}?api_key=c5ba4c0a872712a0e57673a2187d8a0c`)
+    axios.get(`https://api.themoviedb.org/3/movie/${req.query.id}?api_key=${API_KEY}`)
         .then(function (response) {
             // handle success
             console.log(response.data);
@@ -99,6 +106,6 @@ app.use(function (err, req, res, next) {
     });
 });
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+app.listen(PORT, () => {
+    console.log(`Example app listening on port ${PORT}`)
 });
