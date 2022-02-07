@@ -26,6 +26,11 @@
 
 - Use "http://localhost:3000/getMovies" to get all movies from the database.
 
+- Send a PUT Requset to "http://localhost:3000/UPDATE/id" to update your comments with json body containing the new comments, eg: PUT:"http://localhost:3000/UPDATE/id=3", body: {"comment": "Not bad"}.
+- Send a DELETE Request to "http://localhost:3000/DELETE/id" to delete movie from database by its id. eg: DELETE:"http://localhost:3000/DELETE/id=3" to delte movie with id 3;
+
+- Use "http://localhost:3000/getMovie/id" to get a movie from database by id. eg: "http://localhost:3000/getMovie/id=3"
+
 ## Project Features
 - Sends json object with movie info
 - Shows the favorite page
