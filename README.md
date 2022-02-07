@@ -16,6 +16,15 @@
 - Use "http://localhost:3000/search?q=MOVIE_NAME" to search for movies by name (q), eg: "http://localhost:3000/search?q=sing" to search for movies that contains "sing" in there name.
 - Use "http://localhost:3000/search_by_id?id=MOVIE_ID" to search for a movie by its id (id), eg: "http://localhost:3000/search_by_id?id=634649" to get 'spider man' movie information
 - Use "http://localhost:3000/revnue?id=MOVIE_ID" to get movie revenue by its id  (id), eg: "http://localhost:3000/revnue?id=634649" will return the revenue of the 'spider man' movie.
+- Send POST request to "http://localhost:3000/addMovie" with json body containg the movie info to be added with your personal comments, eg: {
+    "title": "Spider-Man: No Way Home",
+    "poster_path": "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+    "overview": "Another spiderman movie",
+    "release_date":"10/20222",
+    "comment":"I Hate it -_-"
+}
+
+- Use "http://localhost:3000/getMovies" to get all movies from the database.
 
 ## Project Features
 - Sends json object with movie info
