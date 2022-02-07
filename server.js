@@ -136,6 +136,50 @@ app.get('/getMovies', (req, res) => {
 
 //==================
 
+// TASK 14
+
+app.put('/UPDATE/:id', (req, res) => {
+    console.log("/UPDATE," + req.params.id);
+    console.log("movie: " + req.body);
+    const id = req.params.id;
+    const movie = req.body;
+    const sql = `UPDATE favMovies SET comment=$1 WHERE ${id}`
+    dbClient.query(sql, [movie.comment]).then(data => {
+        return res.sendStatus(202);
+    }).catch(function (error) {
+        // handle error
+        console.log(error);
+        res.sendStatus(500).send("error while updating movie comments by id, error: " + error)
+    });
+});
+
+app.delete('/DELETE/:id', (req, res) => {
+    console.log("/DELETE," + req.params.id);
+    const id = req.params.id;
+    const sql = `DELETE FROM favMovies WHERE ${id} ;`
+    dbClient.query(sql, [movie.comment]).then(data => {
+        return res.sendStatus(202);
+    }).catch(function (error) {
+        // handle error
+        console.log(error);
+        res.sendStatus(500).send("error while deleting movie by id from database, error: " + error)
+    });
+});
+
+app.get('/getMovie/:id', (req, res) => {
+    console.log("/getMovie," + req.params.id);
+    const sql = `SELECT * FROM favMovies WHERE ${req.params.id}`;
+    dbClient.query(sql).then(data => {
+        return res.status(200).json(data.rows);
+    }).catch(function (error) {
+        // handle error
+        console.log(error);
+        res.status(500).send("error while getting movie from database by id, error: " + error)
+    });
+});
+
+//==================
+
 app.get('*', (req, res) => {
     res.status(404).send("page not found error 404");
 });
