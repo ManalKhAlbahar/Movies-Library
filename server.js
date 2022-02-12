@@ -11,7 +11,11 @@ dotenv.config();
 
 const PORT = process.env.PORT;
 const API_KEY = process.env.API_KEY;
-const dbClient = new pg.Client(process.env.DATABASE_URL);
+const dbClient = new pg.Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+});
+
 dbClient.connect();
 
 function MovieData(id, title, release_date, poster, overview) {
