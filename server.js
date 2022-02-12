@@ -143,7 +143,7 @@ app.put('/UPDATE/:id', (req, res) => {
     console.log("movie: " + req.body);
     const id = req.params.id;
     const movie = req.body;
-    const sql = `UPDATE favMovies SET comment=$1 WHERE ${id}`
+    const sql = `UPDATE favMovies SET comment=$1 WHERE id= ${id}`
     dbClient.query(sql, [movie.comment]).then(data => {
         return res.sendStatus(202);
     }).catch(function (error) {
@@ -156,7 +156,7 @@ app.put('/UPDATE/:id', (req, res) => {
 app.delete('/DELETE/:id', (req, res) => {
     console.log("/DELETE," + req.params.id);
     const id = req.params.id;
-    const sql = `DELETE FROM favMovies WHERE ${id} ;`
+    const sql = `DELETE FROM favMovies WHERE id=${id} ;`
     dbClient.query(sql, [movie.comment]).then(data => {
         return res.sendStatus(202);
     }).catch(function (error) {
@@ -168,7 +168,7 @@ app.delete('/DELETE/:id', (req, res) => {
 
 app.get('/getMovie/:id', (req, res) => {
     console.log("/getMovie," + req.params.id);
-    const sql = `SELECT * FROM favMovies WHERE ${req.params.id}`;
+    const sql = `SELECT * FROM favMovies WHERE id= ${req.params.id}`;
     dbClient.query(sql).then(data => {
         return res.status(200).json(data.rows);
     }).catch(function (error) {
