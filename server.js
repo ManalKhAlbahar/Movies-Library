@@ -6,6 +6,7 @@ const axios = require('axios').default;
 const data = require('./Movie Data/data.json');
 const pg = require('pg');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 dotenv.config();
 
@@ -25,6 +26,8 @@ function MovieData(id, title, release_date, poster, overview) {
     this.poster_path = poster;
     this.overview = overview;
 }
+
+app.use(cors());
 
 app.get('/', (req, res) => {
     //res.send('Hello World!')
